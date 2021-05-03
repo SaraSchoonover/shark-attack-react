@@ -1,36 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
+import { Button } from 'reactstrap';
+import {
+  getLiveStudents,
+  getDeadStudents,
+  killStudent
+} from '../helpers/data/studentsData';
 
 function App() {
-  const [domWriting, setDomWriting] = useState('Nothing Here!');
+  const [livinStudents, setLivinStudents] = useState([]);
+  const [deadStudents, setDeadStudents] = useState([]);
 
-  const handleClick = (e) => {
-    console.warn(`You clicked ${e.target.id}`);
-    setDomWriting(`You clicked ${e.target.id}! Check the Console!`);
+  useEffect(() => {
+    setLivinStudents(getLiveStudents());
+    setDeadStudents(getDeadStudents());
+  }, []);
+
+  const killEmDead = () => {
+    const [living, dead] = killStudent();
+    setLivinStudents(living);
+    setDeadStudents(dead);
   };
 
   return (
     <div className='App'>
-      <h2>INSIDE APP COMPONENT</h2>
-      <div>
-        <button
-          id='this-button'
-          className='btn btn-info'
-          onClick={handleClick}
-        >
-          I am THIS button
-        </button>
-      </div>
-      <div>
-        <button
-          id='that-button'
-          className='btn btn-primary mt-3'
-          onClick={handleClick}
-        >
-          I am THAT button
-        </button>
-      </div>
-      <h3>{domWriting}</h3>
+      <Button
+        color='danger'
+        onClick={killEmDead}
+        disabled={livinStudents.length <= 0}
+      >
+        Kill em Dead
+      </Button>
+      <h2>Living Students</h2>
+      <ul>
+        {livinStudents.map((liveStudent) => (
+          <li key={liveStudent.id}>
+            {`${liveStudent.firstName} ${liveStudent.lastName}`}
+          </li>
+        ))}
+      </ul>
+      <h2>Dead Students</h2>
+      <ul>
+        {deadStudents.map((liveStudent) => (
+          <li key={liveStudent.id}>
+            {`${liveStudent.firstName} ${liveStudent.lastName}`}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
