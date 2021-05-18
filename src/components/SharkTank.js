@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Card } from 'reactstrap';
 import LiveStudent from './LiveStudent';
 
 const SharkTank = ({ livinStudents }) => (
-<ul>
+<Card>
   {livinStudents.map((student) => (
     <LiveStudent key={student.id} student={student} />
   ))}
-</ul>);
+</Card>);
 
 SharkTank.propTypes = {
   livinStudents: PropTypes.array.isRequired

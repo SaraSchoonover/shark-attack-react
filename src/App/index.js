@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
-import { Button } from 'reactstrap';
+import { Button, Card } from 'reactstrap';
 import {
   getLiveStudents,
   getDeadStudents,
   killStudent
 } from '../helpers/data/studentsData';
+import '../styles/index.scss';
 
 function App() {
   const [livinStudents, setLivinStudents] = useState([]);
@@ -31,22 +32,28 @@ function App() {
       >
         Kill em Dead
       </Button>
+
       <h2>Living Students</h2>
-      <ul>
+      <>
         {livinStudents.map((liveStudent) => (
-          <li key={liveStudent.id}>
+          <div className="container" key={liveStudent.id}>
+            <Card className="card-container">
             {`${liveStudent.firstName} ${liveStudent.lastName}`}
-          </li>
+            </Card>
+          </div>
         ))}
-      </ul>
+      </>
+
       <h2>Dead Students</h2>
-      <ul>
+      <>
         {deadStudents.map((liveStudent) => (
-          <li key={liveStudent.id}>
+          <div className="container2" key={liveStudent.id}>
+          <Card className="deadStudents">
             {`${liveStudent.firstName} ${liveStudent.lastName}`}
-          </li>
+            </Card>
+          </div>
         ))}
-      </ul>
+      </>
     </div>
   );
 }
