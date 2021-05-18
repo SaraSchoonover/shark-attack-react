@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Card } from 'reactstrap';
+import './cStyles/liveStudent.scss';
 
 const LiveStudent = ({ student }) => (
-<li>
+<Card className="liveStudent">
   {`${student.firstName} ${student.lastName}`}
-</li>
+</Card>
 );
 
 LiveStudent.propTypes = {
